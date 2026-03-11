@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bài tập quản lý người dùng</title>
+<style>
+table, th, td{
+    border:1px solid black;
+    border-collapse:collapse;
+    padding:5px;
+}
+</style>
+</head>
+
+<body>
+
+<h3>Nhập Thông Tin Người Dùng</h3>
+
+<label>Tên của bạn:</label>
+<input type="text" id="name"><br><br>
+
+<label>Địa chỉ của bạn:</label>
+<input type="text" id="address"><br><br>
+
+<button onclick="addUser()">Lưu Thông Tin</button>
+
+<h3>Thông tin người dùng đã nhập</h3>
+
+<table id="userTable">
+<thead>
+<tr>
+<th>STT</th>
+<th>Tên Người Dùng</th>
+<th>Địa Chỉ</th>
+<th>Dữ Liệu JSON</th>
+<th>Xóa</th>
+</tr>
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+</table>
+
+<h3>Xóa Người Dùng</h3>
+
+<label>Nhập STT cần xóa:</label>
+<input type="number" id="deleteIndex">
+
+<button onclick="deleteUser()">Xóa Người Dùng</button>
+
+<script>
+
+let users = []
+
+function addUser(){
+
+let name = document.getElementById("name").value
+let address = document.getElementById("address").value
+
+if(name=="" || address==""){
+alert("Nhập đầy đủ thông tin")
+return
+}
+
+let user = {
+name:name,
+address:address
+}
+
+users.push(user)
+
+renderTable()
+
+document.getElementById("name").value=""
+document.getElementById("address").value=""
+
+}
+
+function renderTable(){
+
+let tableBody = document.getElementById("tableBody")
+
+tableBody.innerHTML=""
+
+users.forEach((user,index)=>{
+
+let row = `
+<tr>
+<td>${index+1}</td>
+<td>${user.name}</td>
+<td>${user.address}</td>
+<td>${JSON.stringify(user)}</td>
+<td><input type="checkbox" onchange="checkBoxChange()"></td>
+</tr>
+`
+
+tableBody.innerHTML += row
+
+})
+
+}
+
+function checkBoxChange(){
+
+let checkboxes = document.querySelectorAll("#tableBody input[type=checkbox]")
+
+let checked = false
+
+checkboxes.forEach(cb=>{
+if(cb.checked) checked=true
+})
+
+document.getElementById("deleteIndex").disabled = checked
+
+}
+
+function deleteUser(){
+
+let checkboxes = document.querySelectorAll("#tableBody input[type=checkbox]")
+
+let deleteList=[]
+
+checkboxes.forEach((cb,index)=>{
+if(cb.checked){
+deleteList.push(index)
+}
+})
+
+if(deleteList.length>0){
+
+deleteList.reverse().forEach(i=>{
+users.splice(i,1)
+})
+
+}else{
+
+let index = document.getElementById("deleteIndex").value
+
+if(index==""){
+alert("Nhập STT cần xóa")
+return
+}
+
+users.splice(index-1,1)
+
+}
+
+renderTable()
+
+document.getElementById("deleteIndex").value=""
+document.getElementById("deleteIndex").disabled=false
+
+}
+
+</script>
+
+</body>
+</html>
