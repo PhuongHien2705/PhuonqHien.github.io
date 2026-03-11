@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Khảo sát giảng viên</title>
+<script src="script.js"></script>
+</head>
+
+<body>
+
+<h2>Khảo sát đánh giá giảng viên</h2>
+
+<label>Tên môn học:</label>
+<input type="text" id="courseName"><br><br>
+
+<label>Tên giảng viên:</label>
+<input type="text" id="teacherName"><br><br>
+
+<label>Tên sinh viên:</label>
+<input type="text" id="studentName"><br><br>
+
+<label>Ngày giờ gửi form:</label>
+<span id="submitTime"></span>
+
+<br><br>
+
+<table border="1">
+<tr>
+<th>Tiêu chí</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+
+<tbody id="criteriaTable"></tbody>
+
+</table>
+
+<br>
+
+<p id="avg">Trung bình điểm của giảng viên: Chưa hoàn thành đánh giá</p>
+
+<button onclick="submitSurvey()">Gửi Khảo Sát</button>
+
+<h3>Dữ liệu khảo sát dưới dạng JSON:</h3>
+<pre id="jsonOutput"></pre>
+
+</body>
+</html>
